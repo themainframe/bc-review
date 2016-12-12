@@ -1,0 +1,7 @@
+# The root URL for your Bluecherry installation should be inserted below, in place of the ~
+url: ~
+
+# The username and password for your Bluecherry installation
+username: ~
+password: ~
+

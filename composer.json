@@ -1,0 +1,20 @@
+{
+    "name": "themainframe/bc-review",
+    "description": "Bluecherry DVR Event Reviewer",
+    "type": "project",
+    "require": {
+        "symfony/console": "^3.2",
+        "symfony/yaml": "^3.2",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Damien Walsh",
+            "email": "me@damow.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "BcReview\\": "src/" }
+    }
+}
