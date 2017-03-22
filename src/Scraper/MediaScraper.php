@@ -67,7 +67,11 @@ class MediaScraper
         $pool = new Pool($client, $requests, [
             'concurrency' => 2,
             'fulfilled' => function ($response, $id) use ($events, $progress) {
-                $path = __DIR__ . '/../../.cache/' . $events[$id]->getMediaId() . '.jpg';
+                $mediaPath = __DIR__ . '/../../.cache/' . date('Y-m-d', $events[$id]->getPublished()) . '/';
+                if (!is_dir($mediaPath)) {
+                    mkdir($mediaPath);
+                }
+                $path = $mediaPath . $events[$id]->getMediaId() . '.jpg';
                 file_put_contents($path, $response->getBody()->getContents());
                 $events[$id]->setMediaPath(realpath($path));
                 if (is_callable($progress)) {
