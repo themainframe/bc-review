@@ -1,5 +1,4 @@
 .idea
 vendor
-.cache
 .DS_Store
 config.yml
