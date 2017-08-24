@@ -66,7 +66,7 @@ class ReviewCommand extends Command
         $progress->display();
 
         $mediaScraper = new MediaScraper(Config::getUrl(), $cookie);
-        $mediaScraper->getForEvents($events, function () use ($progress) {
+        $mediaScraper->getForEvents($events, __DIR__ . '/../../.cache/', false, function () use ($progress) {
             $progress->advance();
         });
 

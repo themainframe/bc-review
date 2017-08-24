@@ -42,8 +42,11 @@ class MediaScraper
 
     /**
      * @param Event[] $events
+     * @param $outputDirectory
+     * @param bool $groupByDate
+     * @param null $progress
      */
-    public function getForEvents($events, $progress = null)
+    public function getForEvents($events, $outputDirectory, $groupByDate = false, $progress = null)
     {
         $client = new Client(array(
             'verify' => false
@@ -66,8 +69,10 @@ class MediaScraper
 
         $pool = new Pool($client, $requests, [
             'concurrency' => 2,
-            'fulfilled' => function ($response, $id) use ($events, $progress) {
-                $mediaPath = __DIR__ . '/../../.cache/' . date('Y-m-d', $events[$id]->getPublished()) . '/';
+            'fulfilled' => function ($response, $id) use ($events, $progress, $outputDirectory, $groupByDate) {
+                $mediaPath =
+                    $outputDirectory . '/' .
+                    ($groupByDate ? date('Y-m-d', $events[$id]->getPublished()) : '') . '/';
                 if (!is_dir($mediaPath)) {
                     mkdir($mediaPath);
                 }
