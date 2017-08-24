@@ -12,11 +12,13 @@
 require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use BcReview\Command\ReviewCommand;
+use BcReview\Command\ReviewPeriodCommand;
+use BcReview\Command\ReviewMultiplePeriodsCommand;
 use BcReview\Config;
 
 Config::getConfig(__DIR__ . '/config.yml');
 
 $application = new Application();
-$application->add(new ReviewCommand());
+$application->add(new ReviewPeriodCommand());
+$application->add(new ReviewMultiplePeriodsCommand());
 $application->run();

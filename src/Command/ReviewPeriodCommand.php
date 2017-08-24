@@ -21,7 +21,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ReviewCommand extends Command
+class ReviewPeriodCommand extends Command
 {
     public function __construct()
     {
@@ -34,9 +34,10 @@ class ReviewCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('review')
+            ->setName('review:period')
             ->setDescription('Review events for a time period.')
             ->setDefinition(array(
+                new InputArgument('output', InputArgument::REQUIRED, 'The output directory'),
                 new InputArgument('start', InputArgument::REQUIRED, 'The start of the period to review'),
                 new InputArgument('end', InputArgument::OPTIONAL, 'The end of the period to review', 'now'),
                 new InputOption('camera', 'c', InputOption::VALUE_REQUIRED, 'Limit searching to a single camera by ID')
@@ -66,7 +67,7 @@ class ReviewCommand extends Command
         $progress->display();
 
         $mediaScraper = new MediaScraper(Config::getUrl(), $cookie);
-        $mediaScraper->getForEvents($events, __DIR__ . '/../../.cache/', false, function () use ($progress) {
+        $mediaScraper->getForEvents($events, __DIR__ . '/../../.cache/', true, function () use ($progress) {
             $progress->advance();
         });
 
